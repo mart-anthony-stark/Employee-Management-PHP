@@ -24,7 +24,7 @@ BSIT-2C
     // Use the new database for all future SQL queries.
     mysqli_select_db($conn, $databaseName);
 
-    $query = 'CREATE TABLE employee( '.
+    $query = 'CREATE TABLE IF NOT EXISTS employee( '.
     'emp_id INT NOT NULL AUTO_INCREMENT, '.
     'emp_name VARCHAR(20) NOT NULL, '.
     'emp_address VARCHAR(20) NOT NULL, '.
@@ -36,7 +36,21 @@ BSIT-2C
     if(!$retval ) {
         die('Could not create table: ' . mysql_error());
     }
-    echo "Table employee created successfully\n";
+
+    // handle post method for inserting employee record
+    if(isset($_POST['submit'])) {
+        $emp_name = $_POST['emp_name'];
+        $emp_address = $_POST['emp_address'];
+        $emp_salary = $_POST['emp_salary'];
+        $join_date = $_POST['join_date'];
+
+        $query = "INSERT INTO employee (emp_name, emp_address, emp_salary, join_date) VALUES ('$emp_name', '$emp_address', '$emp_salary', '$join_date')";
+        $retval = $conn -> query( $query );
+        if(!$retval ) {
+            die('Could not enter data: ' . mysql_error());
+        }
+        echo "Entered data successfully\n";
+    }
 
 ?>
 <!DOCTYPE html>
@@ -63,10 +77,107 @@ BSIT-2C
         background-color: #4CAF50;
         color: white;
     }
+    form {
+        border: 3px solid #f1f1f1;
+    }
+
+    input[type=text], input[type=date] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+
+    .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+    }
+
+    img.avatar {
+        width: 40%;
+        border-radius: 50%;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+        .cancelbtn {
+            width: 100%;
+        }
+    }
+    /* style add employee button */
+    .addbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
 </style>
     <title>Document</title>
 </head>
 <body>
+    <!-- create form for adding employee to database -->
+    <form class="add" action="index.php" method="post">
+        <table>
+            <tr>
+                <td>Employee Name:</td>
+                <td><input type="text" name="emp_name" required></td>
+            </tr>
+            <tr>
+                <td>Employee Address:</td>
+                <td><input type="text" name="emp_address" required></td>
+            </tr>
+            <tr>
+                <td>Employee Salary:</td>
+                <td><input type="number" name="emp_salary" required></td>
+            </tr>
+            <tr>
+                <td>Employee Join Date:</td>
+                <td><input type="date" name="join_date" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input class="addbtn" type="submit" name="submit" value="Add Employee"></td>
+            </tr>
+        </table>
+    </form>
     <!-- create employee table  (id, name address, salary, join date)-->
 <table>
     <thead>
@@ -104,8 +215,56 @@ BSIT-2C
         ?>
     </tbody>
 </table>
-
+<!-- handle edit employee -->
+<?php
+    if(isset($_POST['edit'])) {
+        $emp_id = $_POST['emp_id'];
+        $query = "SELECT * FROM employee WHERE emp_id = '$emp_id'";
+        $result = $conn->query($query);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $emp_name = $row['emp_name'];
+                $emp_address = $row['emp_address'];
+                $emp_salary = $row['emp_salary'];
+                $join_date = $row['join_date'];
+            }
+        }
+    }
+?>
+<!-- create form for editing employee -->
+<form class="edit" action="index.php" method="post">
+    <table>
+        <tr>
+            <td>Employee ID:</td>
+            <td><input type="text" name="emp_id" value="<?php echo $emp_id; ?>" required></td>
+        </tr>
+        <tr>
+            <td>Employee Name:</td>
+            <td><input type="text" name="emp_name" value="<?php echo $emp_name; ?>" required></td>
+        </tr>
+        <tr>
+            <td>Employee Address:</td>
+            <td><input type="text" name="emp_address" value="<?php echo $emp_address; ?>" required></td>
+        </tr>
+        <tr>
+            <td>Employee Salary:</td>
+            <td><input type="number" name="emp_salary" value="<?php echo $emp_salary; ?>" required></td>
+        </tr>
+        <tr>
+            <td>Employee Join Date:</td>
+            <td><input type="date" name="join_date" value="<?php echo $join_date; ?>" required></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input class="addbtn" type="submit" name="update" value="Update Employee"></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
 
 
+<!-- style insert employee form -->
+<style>
+    
+</style>
