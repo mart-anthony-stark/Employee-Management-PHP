@@ -38,7 +38,7 @@ BSIT-2C
     }
 
     // handle post method for inserting employee record
-    if(isset($_POST['submit'])) {
+    if(isset($_POST['addEmployee'])) {
         $emp_name = $_POST['emp_name'];
         $emp_address = $_POST['emp_address'];
         $emp_salary = $_POST['emp_salary'];
@@ -60,101 +60,17 @@ BSIT-2C
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- style table -->
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even){background-color: #f2f2f2}
-
-    th {
-        background-color: #4CAF50;
-        color: white;
-    }
-    form {
-        border: 3px solid #f1f1f1;
-    }
-
-    input[type=text], input[type=date] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    button:hover {
-        opacity: 0.8;
-    }
-
-    .cancelbtn {
-        width: auto;
-        padding: 10px 18px;
-        background-color: #f44336;
-    }
-
-    .imgcontainer {
-        text-align: center;
-        margin: 24px 0 12px 0;
-    }
-
-    img.avatar {
-        width: 40%;
-        border-radius: 50%;
-    }
-
-    .container {
-        padding: 16px;
-    }
-
-    span.psw {
-        float: right;
-        padding-top: 16px;
-    }
-
-    /* Change styles for span and cancel button on extra small screens */
-    @media screen and (max-width: 300px) {
-        span.psw {
-            display: block;
-            float: none;
-        }
-        .cancelbtn {
-            width: 100%;
-        }
-    }
-    /* style add employee button */
-    .addbtn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-    }
-</style>
-    <title>Document</title>
+    <link rel="stylesheet" href="./styles.css">
+    <title>Employee</title>
 </head>
 <body>
+    <div class="buttons">
+        <button class="add-emp-btn">ADD EMPLOYEE</button>
+    </div>
     <!-- create form for adding employee to database -->
-    <form class="add" action="index.php" method="post">
+    <div class="add-overlay overlay hidden"></div>
+    <form class="add hidden" action="index.php" method="post">
+
         <table>
             <tr>
                 <td>Employee Name:</td>
@@ -174,7 +90,7 @@ BSIT-2C
             </tr>
             <tr>
                 <td></td>
-                <td><input class="addbtn" type="submit" name="submit" value="Add Employee"></td>
+                <td><input class="addbtn" type="submit" name="addEmployee" value="Add Employee"></td>
             </tr>
         </table>
     </form>
@@ -232,7 +148,7 @@ BSIT-2C
     }
 ?>
 <!-- create form for editing employee -->
-<form class="edit" action="index.php" method="post">
+<!-- <form class="edit" action="index.php" method="post">
     <table>
         <tr>
             <td>Employee ID:</td>
@@ -259,8 +175,19 @@ BSIT-2C
             <td><input class="addbtn" type="submit" name="update" value="Update Employee"></td>
         </tr>
     </table>
-</form>
+</form> -->
+<script>
+    const addForm = document.querySelector('.add')
+    const addOverlay = document.querySelector('.add-overlay')
+    const addBtn = document.querySelector('.add-emp-btn')
+
+    addBtn.addEventListener('click', ()=>{
+        addForm.classList.remove("hidden")
+        addOverlay.classList.remove("hidden")
+    })
+</script>
 </body>
+
 </html>
 
 
