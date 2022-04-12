@@ -125,6 +125,7 @@ BSIT-2C
                     echo '<td>'.$row['emp_address'].'</td>';
                     echo '<td>'.$row['emp_salary'].'</td>';
                     echo '<td>'.$row['join_date'].'</td>';
+                    echo '<td><button>EDIT</button></td>';
                     echo '</tr>';
                 }
             }
@@ -147,35 +148,7 @@ BSIT-2C
         }
     }
 ?>
-<!-- create form for editing employee -->
-<!-- <form class="edit" action="index.php" method="post">
-    <table>
-        <tr>
-            <td>Employee ID:</td>
-            <td><input type="text" name="emp_id" value="<?php echo $emp_id; ?>" required></td>
-        </tr>
-        <tr>
-            <td>Employee Name:</td>
-            <td><input type="text" name="emp_name" value="<?php echo $emp_name; ?>" required></td>
-        </tr>
-        <tr>
-            <td>Employee Address:</td>
-            <td><input type="text" name="emp_address" value="<?php echo $emp_address; ?>" required></td>
-        </tr>
-        <tr>
-            <td>Employee Salary:</td>
-            <td><input type="number" name="emp_salary" value="<?php echo $emp_salary; ?>" required></td>
-        </tr>
-        <tr>
-            <td>Employee Join Date:</td>
-            <td><input type="date" name="join_date" value="<?php echo $join_date; ?>" required></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input class="addbtn" type="submit" name="update" value="Update Employee"></td>
-        </tr>
-    </table>
-</form> -->
+
 <script>
     const addForm = document.querySelector('.add')
     const addOverlay = document.querySelector('.add-overlay')
