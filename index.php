@@ -125,7 +125,7 @@ BSIT-2C
                     echo '<td>'.$row['emp_address'].'</td>';
                     echo '<td>'.$row['emp_salary'].'</td>';
                     echo '<td>'.$row['join_date'].'</td>';
-                    echo '<td><button>EDIT</button></td>';
+                    echo '<td><button onclick="edit('.$row['emp_id'].')">EDIT</button></td>';
                     echo '</tr>';
                 }
             }
