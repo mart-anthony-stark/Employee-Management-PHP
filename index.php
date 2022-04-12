@@ -95,6 +95,34 @@ BSIT-2C
         </table>
     </form>
     <!-- create employee table  (id, name address, salary, join date)-->
+    <!-- EDIT FORM -->
+    <div class="edit-overlay overlay hidden"></div>
+    <form class="edit hidden" action="index.php" method="post">
+
+        <table>
+            <tr>
+                <td>Employee Name:</td>
+                <td><input type="text" name="emp_name" required></td>
+            </tr>
+            <tr>
+                <td>Employee Address:</td>
+                <td><input type="text" name="emp_address" required></td>
+            </tr>
+            <tr>
+                <td>Employee Salary:</td>
+                <td><input type="number" name="emp_salary" required></td>
+            </tr>
+            <tr>
+                <td>Employee Join Date:</td>
+                <td><input type="date" name="join_date" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input class="addbtn" type="submit" name="addEmployee" value="Save"></td>
+                <td><input class="addbtn" type="submit" name="addEmployee" value="Cancel"></td>
+            </tr>
+        </table>
+    </form>
 <table>
     <thead>
         <th>
@@ -153,14 +181,19 @@ BSIT-2C
     const addForm = document.querySelector('.add')
     const addOverlay = document.querySelector('.add-overlay')
     const addBtn = document.querySelector('.add-emp-btn')
+    const editForm = document.querySelector('.edit')
+    const editOverlay = document.querySelector('.edit-overlay')
 
     addBtn.addEventListener('click', ()=>{
         addForm.classList.remove("hidden")
         addOverlay.classList.remove("hidden")
     })
 
-    function edit(id){
-        console.log(id)
+    
+    function edit(obj){
+        console.log(obj)
+        editForm.classList.remove("hidden")
+        editOverlay.classList.remove("hidden")
     }
 </script>
 </body>
