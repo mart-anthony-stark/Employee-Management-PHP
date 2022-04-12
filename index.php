@@ -158,6 +158,10 @@ BSIT-2C
         addForm.classList.remove("hidden")
         addOverlay.classList.remove("hidden")
     })
+
+    function edit(id){
+        console.log(id)
+    }
 </script>
 </body>
 
