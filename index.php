@@ -49,9 +49,13 @@ BSIT-2C
         if(!$retval ) {
             die('Could not enter data: ' . mysql_error());
         }
-        echo "Entered data successfully\n";
     }
-
+    
+    if(isset($_POST['editEmployee'])) {
+        $emp_id = $_POST['id'];
+        $query = "UPDATE employee SET emp_name='$_POST[name]', emp_address='$_POST[address]', emp_salary='$_POST[salary]', join_date='$_POST[join_date]' WHERE emp_id = '$emp_id'";
+        $conn -> query( $query );
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,7 +94,8 @@ BSIT-2C
             </tr>
             <tr>
                 <td></td>
-                <td><input class="addbtn" type="submit" name="addEmployee" value="Add Employee"></td>
+                <td><input class="btn addbtn" type="submit" name="addEmployee" value="Add Employee"></td>
+                <td><button class="btn" type="button">Cancel</button></td>
             </tr>
         </table>
     </form>
@@ -98,28 +103,29 @@ BSIT-2C
     <!-- EDIT FORM -->
     <div class="edit-overlay overlay hidden"></div>
     <form class="edit hidden" action="index.php" method="post">
-
+        
+        <input type="text" readonly name="id">
         <table>
             <tr>
                 <td>Employee Name:</td>
-                <td><input type="text" name="emp_name" required></td>
+                <td><input class="input" type="text" name="name" required></td>
             </tr>
             <tr>
                 <td>Employee Address:</td>
-                <td><input type="text" name="emp_address" required></td>
+                <td><input class="input" type="text" name="address" required></td>
             </tr>
             <tr>
                 <td>Employee Salary:</td>
-                <td><input type="number" name="emp_salary" required></td>
+                <td><input class="input" type="number" name="salary" required></td>
             </tr>
             <tr>
                 <td>Employee Join Date:</td>
-                <td><input type="date" name="join_date" required></td>
+                <td><input class="input" type="date" name="join_date" required></td>
             </tr>
             <tr>
                 <td></td>
-                <td><input class="addbtn" type="submit" name="addEmployee" value="Save"></td>
-                <td><input class="addbtn" type="submit" name="addEmployee" value="Cancel"></td>
+                <td><input class="btn addBtn" type="submit" name="editEmployee" value="Save"></td>
+                <td><button type="button" onClick="hide('edit')" class="cancelEditBtn">Cancel</button></td>
             </tr>
         </table>
     </form>
@@ -147,7 +153,7 @@ BSIT-2C
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    echo '<tr>';
+                    echo '<tr id="row-'.$row['emp_id'].'">';
                     echo '<td>'.$row['emp_id'].'</td>';
                     echo '<td>'.$row['emp_name'].'</td>';
                     echo '<td>'.$row['emp_address'].'</td>';
@@ -160,44 +166,8 @@ BSIT-2C
         ?>
     </tbody>
 </table>
-<!-- handle edit employee -->
-<?php
-    if(isset($_POST['edit'])) {
-        $emp_id = $_POST['emp_id'];
-        $query = "SELECT * FROM employee WHERE emp_id = '$emp_id'";
-        $result = $conn->query($query);
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $emp_name = $row['emp_name'];
-                $emp_address = $row['emp_address'];
-                $emp_salary = $row['emp_salary'];
-                $join_date = $row['join_date'];
-            }
-        }
-    }
-?>
-
-<script>
-    const addForm = document.querySelector('.add')
-    const addOverlay = document.querySelector('.add-overlay')
-    const addBtn = document.querySelector('.add-emp-btn')
-    const editForm = document.querySelector('.edit')
-    const editOverlay = document.querySelector('.edit-overlay')
-
-    addBtn.addEventListener('click', ()=>{
-        addForm.classList.remove("hidden")
-        addOverlay.classList.remove("hidden")
-    })
-
-    
-    function edit(obj){
-        console.log(obj)
-        editForm.classList.remove("hidden")
-        editOverlay.classList.remove("hidden")
-    }
-</script>
 </body>
-
+    <script src="./app.js"></script>
 </html>
 
 
