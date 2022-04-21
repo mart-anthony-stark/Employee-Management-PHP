@@ -69,33 +69,34 @@ BSIT-2C
 </head>
 <body>
     <div class="buttons">
-        <button class="add-emp-btn">ADD EMPLOYEE</button>
+        <button class="cta add-emp-btn">ADD EMPLOYEE</button>
     </div>
     <!-- create form for adding employee to database -->
     <div class="add-overlay overlay hidden"></div>
+    <h1 class="title">Employees</h1>
     <form class="add hidden" action="index.php" method="post">
-
+        <h1 class="title">Add Employee</h1>
         <table>
             <tr>
                 <td>Employee Name:</td>
-                <td><input type="text" name="emp_name" required></td>
+                <td colspan="100%"><input type="text" name="emp_name" required></td>
             </tr>
             <tr>
                 <td>Employee Address:</td>
-                <td><input type="text" name="emp_address" required></td>
+                <td colspan="100%"><input type="text" name="emp_address" required></td>
             </tr>
             <tr>
                 <td>Employee Salary:</td>
-                <td><input type="number" name="emp_salary" required></td>
+                <td colspan="100%"><input type="number" name="emp_salary" required></td>
             </tr>
             <tr>
                 <td>Employee Join Date:</td>
-                <td><input type="date" name="join_date" required></td>
+                <td colspan="100%"><input type="date" name="join_date" required></td>
             </tr>
             <tr>
                 <td></td>
                 <td><input class="btn addbtn" type="submit" name="addEmployee" value="Add Employee"></td>
-                <td><button class="btn" type="button">Cancel</button></td>
+                <td><button onClick="hide('add')" class="btn" type="button">Cancel</button></td>
             </tr>
         </table>
     </form>
@@ -103,24 +104,24 @@ BSIT-2C
     <!-- EDIT FORM -->
     <div class="edit-overlay overlay hidden"></div>
     <form class="edit hidden" action="index.php" method="post">
-        
-        <input type="text" readonly name="id">
+        <h1 class="title">Edit Employee</h1>
+        <input type="hidden" name="id">
         <table>
             <tr>
                 <td>Employee Name:</td>
-                <td><input class="input" type="text" name="name" required></td>
+                <td class="input-cont" colspan="100%"><input class="input" type="text" name="name" required></td>
             </tr>
             <tr>
                 <td>Employee Address:</td>
-                <td><input class="input" type="text" name="address" required></td>
+                <td class="input-cont" colspan="100%"><input class="input" type="text" name="address" required></td>
             </tr>
             <tr>
                 <td>Employee Salary:</td>
-                <td><input class="input" type="number" name="salary" required></td>
+                <td class="input-cont" colspan="100%"><input class="input" type="number" name="salary" required></td>
             </tr>
             <tr>
                 <td>Employee Join Date:</td>
-                <td><input class="input" type="date" name="join_date" required></td>
+                <td class="input-cont" colspan="100%"><input class="input" type="date" name="join_date" required></td>
             </tr>
             <tr>
                 <td></td>
@@ -159,7 +160,7 @@ BSIT-2C
                     echo '<td>'.$row['emp_address'].'</td>';
                     echo '<td>'.$row['emp_salary'].'</td>';
                     echo '<td>'.$row['join_date'].'</td>';
-                    echo '<td><button onclick="edit('.$row['emp_id'].')">EDIT</button></td>';
+                    echo '<td><button class="cta" onclick="edit('.$row['emp_id'].')">EDIT</button></td>';
                     echo '</tr>';
                 }
             }
