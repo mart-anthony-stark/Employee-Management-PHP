@@ -24,10 +24,18 @@ function edit(id) {
 }
 
 function hide(form) {
-  if (form === "edit") {
-    const inputs = editForm.querySelectorAll(".input");
-    inputs.forEach((i) => (i.value = ""));
-    editForm.classList.add("hidden");
-    editOverlay.classList.add("hidden");
+  switch (form) {
+    case "edit":
+      const inputs = editForm.querySelectorAll(".input");
+      inputs.forEach((i) => (i.value = ""));
+      editForm.classList.add("hidden");
+      editOverlay.classList.add("hidden");
+      break;
+    case "add":
+      const input = addForm.querySelectorAll(".input");
+      input.forEach((i) => (i.value = ""));
+      addForm.classList.add("hidden");
+      addOverlay.classList.add("hidden");
+      break;
   }
 }
